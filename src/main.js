@@ -35,6 +35,12 @@ Vue.use(ElementUI, { locale })
 
 Vue.config.productionTip = false
 
+import moment from 'moment'
+Vue.prototype.$moment = moment
+// Vue.filter('dateFormat', function (dataStr, pattern = 'YYYY-MM-DD') {
+//   return moment(dataStr).format(pattern)
+// })
+
 new Vue({
   el: '#app',
   router,
