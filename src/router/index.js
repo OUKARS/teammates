@@ -69,23 +69,32 @@ export const constantRoutes = [
         meta: { title: '赛事列表', icon: 'table' }
       },
       {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        path: 'detail',
+        name: 'detail',
+        component: () => import('@/views/competition/detail'),
+        meta: { title: '新增赛事', icon: 'tree' }
       }
     ]
   },
 
   {
-    path: '/form',
+    path: '/tag',
     component: Layout,
+    redirect: '/tag/list',
+    name: 'tag',
+    meta: { title: '标签管理', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
+        path: 'list',
+        name: 'tag',
+        component: () => import('@/views/tag/list'),
+        meta: { title: '赛事标签', icon: 'form' }
+      },
+      {
+        path: 'detail',
+        name: 'detail',
+        component: () => import('@/views/tag/detail'),
+        meta: { title: '新增标签', icon: 'tree' }
       }
     ]
   },
