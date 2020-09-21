@@ -16,9 +16,22 @@ export function postCompetition(form) {
     data: form
   })
 }
+export function editCompetition(comp_id, form) {
+  return request({
+    url: '/competition/' + comp_id,
+    method: 'put',
+    data: form
+  })
+}
 export function deleteCompetition(comp_id) {
   return request({
-    url: '/competition/'+comp_id,
-    method: 'delete',
+    url: '/competition/' + comp_id,
+    method: 'delete'
+  })
+}
+export function fetchCompDetail(comp_id) {
+  return request({
+    url: '/competition/' + comp_id,
+    method: 'get'
   })
 }

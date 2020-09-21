@@ -10,81 +10,76 @@
     >
       <el-table-column align="center" label="ID" min-width="3%">
         <template slot-scope="scope">
-          {{ scope.row.comp_id }}
+          {{ scope.row.team_id }}
         </template>
       </el-table-column>
-      <el-table-column label="赛事名" :show-overflow-tooltip="true" min-width="11%">
+      <el-table-column label="队伍名" :show-overflow-tooltip="true" min-width="11%">
         <template slot-scope="scope">
-          {{ scope.row.title }}
+          {{ scope.row.team_name }}
         </template>
       </el-table-column>
       <el-table-column
         align="center"
-        label="赛事图"
+        label="队伍头像"
         min-width="8%"
       >
         <template slot-scope="scope">
-          <img class="competition-img" :src="scope.row.img_url">
+          <img class="competition-img" :src="scope.row.team_avatar_url">
           <!-- <span style="margin-left: 10px">{{ scope.row.headimgurl }}</span> -->
         </template>
       </el-table-column>
-      <el-table-column label="主办方" align="center" :show-overflow-tooltip="true" min-width="5%">
+      <el-table-column label="是否公开" align="center" :show-overflow-tooltip="true" min-width="5%">
         <template slot-scope="scope">
-          <span>{{ scope.row.sponsor }}</span>
+          <span>{{ scope.row.team_isOpen }}</span>
         </template>
       </el-table-column>
       <el-table-column
         align="center"
-        label="赛事标签"
+        label="参赛赛事"
         min-width="5%"
       >
-        <template slot-scope="scope">
-          <el-popover trigger="hover" placement="top">
-            <el-tag v-for="item in scope.row.tags" :key="item.tag_id" style="margin:2px 4px;!important" size="medium">{{ item.tag_name }}</el-tag>
+        <template slot-scope="scope" >
+          <el-popover  v-if="scope.row.competitions.length>0" trigger="hover" placement="top">
+            <el-tag v-for="item in scope.row.competitions" :key="item.comp_id" style="margin:2px 4px;!important" size="medium">{{ item.title }}</el-tag>
             <div slot="reference" class="name-wrapper">
-              <el-tag size="medium">{{ scope.row.tags[0].tag_name }}</el-tag>
+              <el-tag size="medium">{{ scope.row.competitions[0].title }}</el-tag>
+            </div>
+          </el-popover>
+          <el-popover  v-else trigger="hover" placement="top">
+            <div slot="reference" class="name-wrapper">
+              无
             </div>
           </el-popover>
         </template>
       </el-table-column>
-      <el-table-column label="赛事简介" align="center" :show-overflow-tooltip="true" min-width="25%">
-        <template slot-scope="scope">
-          {{ scope.row.content }}
-        </template>
-      </el-table-column>
       <el-table-column
         align="center"
-        prop="start_time"
-        label="赛事开始时间"
-        :formatter="dateForMat"
-        min-width="7%"
-      />
-      <el-table-column
-        align="center"
-        prop="end_time"
-        label="赛事结束时间"
-        :formatter="dateForMat"
-        min-width="7%"
-      />
-      <el-table-column
-        align="center"
-        label="数据"
-        min-width="4%"
+        label="参赛成员"
+        min-width="5%"
       >
-        <template slot-scope="scope">
-          <el-popover trigger="hover" placement="top">
-            <p>浏览次数: {{ scope.row.view_count }}</p>
-            <p>收藏人数: {{ scope.row.love_count }}</p>
-            <div slot="reference" class="name-wrapper">
-              <el-tag size="medium">{{ scope.row.view_count }}</el-tag>
+        <template slot-scope="scope" >
+          <el-popover  v-if="scope.row.users.length>0" trigger="hover" placement="top">
+            <!-- <el-tag v-for="item in scope.row.users" :key="item.user_id" style="margin:2px 4px;!important" size="medium">{{ item.username }}</el-tag> -->
+            <div  v-for="(item,index) in scope.row.users" :key="item.user_id" slot="reference" class="name-wrapper" >
+              <el-tag  :class="{'leader':item.team_user.position == 1}" size="medium">{{ item.username }}</el-tag>
             </div>
           </el-popover>
+          <el-popover  v-else trigger="hover" placement="top">
+            <div slot="reference" class="name-wrapper">
+              无
+            </div>
+          </el-popover>
+        </template>
+      </el-table-column>
+      <el-table-column label="队伍简介" align="center" :show-overflow-tooltip="true" min-width="25%">
+        <template slot-scope="scope">
+          {{ scope.row.team_intro }}
         </template>
       </el-table-column>
       <el-table-column
         align="center"
         prop="add_time"
-        label="添加时间"
+        label="创建时间"
         min-width="10%"
       />
       <el-table-column label="操作" width="120" align="center">
@@ -93,12 +88,12 @@
             style="margin:2px 4px;"
             size="mini"
             type="primary"
-            @click="editCompetition(scope.row)">编辑</el-button>
+            @click="editTeam(scope.row)">编辑</el-button>
           <el-button
             style="margin:2px 4px;"
             size="mini"
             type="danger"
-            @click="deleteCompetition(scope.row)" >删除</el-button>
+            @click="deleteTeam(scope.row)" >删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -114,7 +109,7 @@
 </template>
 
 <script>
-import { getCompetitionList, deleteCompetition } from '@/api/competition'
+import { getTeamList, deleteTeam } from '@/api/team'
 
 export default {
   filters: {
@@ -138,16 +133,16 @@ export default {
   },
   watch: {
     'currentPage': function(newVal) {
-      this.fetchCompetitionList(newVal)
+      this.fetchTeamList(newVal)
     }
   },
   created() {
-    this.fetchCompetitionList(1)
+    this.fetchTeamList(1)
   },
   methods: {
-    fetchCompetitionList(page) {
+    fetchTeamList(page) {
       this.listLoading = true
-      getCompetitionList(page).then(response => {
+      getTeamList(page).then(response => {
         this.list = response.data.list
         this.pageNum = response.data.pageNum
         this.listLoading = false
@@ -161,18 +156,18 @@ export default {
       const date = row[column.property]
       return this.$moment(date).format('YYYY-MM-DD')
     },
-    editCompetition(row) {
-      this.$router.push({ path: '/competition/detail', query: { comp_id: row.comp_id }})
+    editTeam(row) {
+      this.$router.push({ path: '/team/detail', query: { team_id: row.team_id }})
     },
-    deleteCompetition(row) {
+    deleteTeam(row) {
       let that = this
-      this.$confirm(`确定要删除赛事【${row.title}】吗？`, '删除赛事', {
+      this.$confirm(`确定要删除队伍【${row.team_name}】吗？`, '删除赛事', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deleteCompetition(row.comp_id).then(res => {
-          that.fetchCompetitionList(that.currentPage)
+        deleteTeam(row.team_id).then(res => {
+          that.fetchTeamList(that.currentPage)
         })
       })
     }
@@ -183,5 +178,11 @@ export default {
 .competition-img{
   width: 5rem;
   height: 3rem;
+}
+.leader{
+  margin: 4px 0;
+  background-color: orange !important;
+  border-color: orange !important;
+  color:#fff
 }
 </style>

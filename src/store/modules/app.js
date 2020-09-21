@@ -5,7 +5,9 @@ const state = {
     opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
     withoutAnimation: false
   },
-  device: 'desktop'
+  device: 'desktop',
+  // importFileUrl:'https://team.wuster.vip/api/upload',
+  importFileUrl:'http://localhost:5757/api/upload'
 }
 
 const mutations = {

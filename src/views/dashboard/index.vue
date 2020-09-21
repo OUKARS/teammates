@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">name: {{ name }}</div>
+    <div class="dashboard-text">大学生赛事资讯与组队平台管理端</div>
   </div>
 </template>
 

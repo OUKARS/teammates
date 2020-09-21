@@ -1,37 +1,37 @@
 import request from '@/utils/request'
 
-export function getUserList(page) {
+export function getTeamList(page) {
   return request({
-    url: '/user',
+    url: '/team',
     method: 'get',
     params: {
       page: page
     }
   })
 }
-export function postUser(form) {
+export function postTeam(form) {
   return request({
-    url: '/user',
+    url: '/team',
     method: 'post',
     data: form
   })
 }
-export function editUser(user_id,form) {
+export function editTeam(team_id, form) {
   return request({
-    url: '/user/' + user_id,
+    url: '/team/' + team_id,
     method: 'put',
     data: form
   })
 }
-export function deleteUser(user_id) {
+export function deleteTeam(team_id) {
   return request({
-    url: '/user/' + user_id,
+    url: '/team/' + team_id,
     method: 'delete'
   })
 }
-export function fetchUserDetail(user_id) {
+export function fetchTeamDetail(team_id) {
   return request({
-    url: '/user/' + user_id,
+    url: '/team/' + team_id,
     method: 'get'
   })
 }

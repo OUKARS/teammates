@@ -27,7 +27,7 @@ export default {
       rules: {
         name: [
           { required: true, message: '请输入标签名称', trigger: 'blur' },
-          { min: 4, message: '长度在至少为4个字符', trigger: 'blur' }
+          { min:1, message: '长度在至少为1个字符', trigger: 'blur' }
         ]
       }
     }
