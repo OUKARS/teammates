@@ -23,6 +23,21 @@
           {{ scope.row.user_name }}
         </template>
       </el-table-column>
+      <el-table-column label="手机号" :show-overflow-tooltip="true" min-width="11%">
+        <template slot-scope="scope">
+          {{ scope.row.telephone }}
+        </template>
+      </el-table-column>
+      <el-table-column label="QQ" :show-overflow-tooltip="true" min-width="11%">
+        <template slot-scope="scope">
+          {{ scope.row.qq }}
+        </template>
+      </el-table-column>
+      <el-table-column label="微信" :show-overflow-tooltip="true" min-width="11%">
+        <template slot-scope="scope">
+          {{ scope.row.wechat }}
+        </template>
+      </el-table-column>
       <el-table-column
         align="center"
         label="用户头像"
@@ -163,7 +178,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .competition-img{
-  width: 5rem;
-  height: 3rem;
+  width: 4rem;
+  height: 4rem;
 }
 </style>

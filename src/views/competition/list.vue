@@ -66,7 +66,7 @@
         :formatter="dateForMat"
         min-width="7%"
       />
-      <el-table-column
+      <!-- <el-table-column
         align="center"
         label="数据"
         min-width="4%"
@@ -80,7 +80,7 @@
             </div>
           </el-popover>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column
         align="center"
         prop="add_time"
@@ -181,7 +181,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .competition-img{
-  width: 5rem;
-  height: 3rem;
+  width: 7.2rem;
+  height: 3.8rem;
 }
 </style>

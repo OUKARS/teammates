@@ -9,6 +9,12 @@ export function getCompetitionList(page) {
     }
   })
 }
+export function getCompetitionTotal() {
+  return request({
+    url: '/competition/total',
+    method: 'get'
+  })
+}
 export function postCompetition(form) {
   return request({
     url: '/competition',

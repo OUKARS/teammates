@@ -158,10 +158,10 @@ export default {
         console.log(this.ruleForm.tags)
       })
     }
-    this.ruleForm.name='挑战杯大赛'
-    this.ruleForm.sponsor='挑战杯大赛11'
-    this.ruleForm.degree=2
-    this.ruleForm.desc='挑战杯大赛'
+    // this.ruleForm.name='挑战杯大赛'
+    // this.ruleForm.sponsor='挑战杯大赛11'
+    // this.ruleForm.degree=2
+    // this.ruleForm.desc='挑战杯大赛'
     getTagList(0).then(res => {
       this.tagOptions = res.data
     })

@@ -15,6 +15,15 @@
     <el-form-item label="用户昵称" prop="name" required>
       <el-input class="input" v-model="ruleForm.name"></el-input>
     </el-form-item>
+    <el-form-item label="手机号" prop="telephone">
+      <el-input class="input" v-model="ruleForm.telephone"></el-input>
+    </el-form-item>
+    <el-form-item label="QQ" prop="qq">
+      <el-input class="input" v-model="ruleForm.qq"></el-input>
+    </el-form-item>
+    <el-form-item label="微信" prop="wechat">
+      <el-input class="input" v-model="ruleForm.wechat"></el-input>
+    </el-form-item>
     <el-form-item label="用户头像" prop="type">
       <el-upload
         ref="upload"
@@ -76,7 +85,10 @@ export default {
         imgUrl: '',
         desc: '',
         teams: [],
-        gender: 0
+        gender: 0,
+        telephone:'',
+        qq:'',
+        wechat:''
       },
       type: 0, //0新建1编辑
       imgList: [],
@@ -109,6 +121,9 @@ export default {
         this.ruleForm.imgUrl = res.data.avatar_url
         this.ruleForm.gender = res.data.gender
         this.ruleForm.desc = res.data.user_intro
+        this.ruleForm.telephone = res.data.telephone
+        this.ruleForm.qq = res.data.qq
+        this.ruleForm.wechat = res.data.wechat
         res.data.teams.forEach((e,i)=>{
           this.ruleForm.teams.push(e)
         })

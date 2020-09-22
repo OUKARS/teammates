@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'Vue Admin Template',
+  title: '赛事资讯与组队平台管理端',
 
   /**
    * @type {boolean} true | false

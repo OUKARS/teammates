@@ -176,8 +176,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .competition-img{
-  width: 5rem;
-  height: 3rem;
+  width: 4rem;
+  height: 4rem;
 }
 .leader{
   margin: 4px 0;
